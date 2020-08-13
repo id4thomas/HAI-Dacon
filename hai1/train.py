@@ -43,6 +43,9 @@ BATCH_SIZE = args.batch
 
 MODEL_NAME=args.m_name
 
+#Print Params
+print("Training {} Epoch {} Batch {} Window {}".format(MODEL_NAME,MAX_EPOCHS,BATCH_SIZE,WINDOW_SIZE))
+
 #Data Preprocess
 TRAIN_DATASET = sorted([x for x in Path('data/train-dataset/').glob("*.csv")])
 TEST_DATASET = sorted([x for x in Path('data/test-dataset/').glob("*.csv")])
@@ -159,6 +162,7 @@ def train(dataset, model, batch_size, n_epochs):
             loss.backward()
             epoch_loss += loss.item()
             optimizer.step()
+        print('Epoch {} Loss {:.6f}'.format(e+1,epoch_loss))
         loss_history.append(epoch_loss)
         # epochs.set_postfix_str(f"loss: {epoch_loss:.6f}")
         if epoch_loss < best["loss"]:
@@ -169,6 +173,7 @@ def train(dataset, model, batch_size, n_epochs):
 
 
 ######## Train #######
+print("Start Training")
 MODEL.train()
 
 BEST_MODEL, LOSS_HISTORY = train(HAI_DATASET_TRAIN, MODEL, BATCH_SIZE, MAX_EPOCHS)
