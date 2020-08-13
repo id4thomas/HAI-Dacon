@@ -26,6 +26,8 @@ parser.add_argument('--win', type=int, default=90,
                     help='Window Size')
 parser.add_argument('--m_name', type=str, default='baseline',
                     help='Model Name')
+parser.add_argument('--ldim', type=int, default=8,
+                    help='Latent dim')
 args = parser.parse_args()
 
 #Set Params
@@ -34,6 +36,7 @@ WINDOW_GIVEN = WINDOW_SIZE-1
 
 N_HIDDENS = args.hid
 N_LAYERS = args.n_l
+L_DIM=args.ldim
 
 MAX_EPOCHS = args.ep
 BATCH_SIZE = args.batch
@@ -123,13 +126,12 @@ if MODEL_NAME=='baseline':
     from baseline_model import HAIModel
 elif MODEL_NAME=='vae':
     from vae_model import HAIModel
-    l_dim=2
 
 model_params={
     'n_tags':TRAIN_DF.shape[1],
     'n_hid': N_HIDDENS,
     'n_layers':N_LAYERS,
-    'l_dim':2
+    'l_dim':L_DIM
 }
 
 MODEL = HAIModel(model_params)
