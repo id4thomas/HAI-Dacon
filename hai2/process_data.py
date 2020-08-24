@@ -35,7 +35,6 @@ ATTACK_FIELD = "attack"
 
 VALID_COLUMNS_IN_TRAIN_DATASET = TRAIN_DF_RAW.columns.drop([TIMESTAMP_FIELD])
 
-
 #MIN, MAX values taken from training df
 TAG_MIN = TRAIN_DF_RAW[VALID_COLUMNS_IN_TRAIN_DATASET].min()
 TAG_MAX = TRAIN_DF_RAW[VALID_COLUMNS_IN_TRAIN_DATASET].max()
@@ -54,8 +53,9 @@ def normalize(df):
 
 #ewm: exponential weighted function - noise smoothing
 TRAIN_DF = normalize(TRAIN_DF_RAW[VALID_COLUMNS_IN_TRAIN_DATASET]).ewm(alpha=0.9).mean()
-VAL_DF = normalize(VAL_DF_RAW[VALID_COLUMNS_IN_TRAIN_DATASET])
+VAL_DF = normalize(VAL_DF_RAW[VALID_COLUMNS_IN_TRAIN_DATASET])#This removes time&atk
 
+print("Normalized Train {} Val {}".format(TRAIN_DF.shape,VAL_DF.shape))
 def boundary_check(df):
     x = np.array(df, dtype=np.float32)
     return np.any(x > 1.0), np.any(x < 0), np.any(np.isnan(x))

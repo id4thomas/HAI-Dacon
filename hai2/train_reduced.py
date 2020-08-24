@@ -31,7 +31,7 @@ parser.add_argument('--ldim', type=int, default=8,
                     help='Latent dim')
 parser.add_argument('--m_name', type=str, default='baseline',
                     help='Model Name')
-parser.add_argument('--r_rtype', type=str, default='pca',
+parser.add_argument('--r_type', type=str, default='pca',
                     help='Reduction Algorithm')
 args = parser.parse_args()
 
