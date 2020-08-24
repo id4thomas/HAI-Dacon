@@ -61,7 +61,7 @@ def boundary_check(df):
     return np.any(x > 1.0), np.any(x < 0), np.any(np.isnan(x))
 
 train_tag_vals=np.array(TRAIN_DF, dtype=np.float32)
-val_tag_vals=np.array(VAL_DF, dtype=np.float32)ㅋㅈ
+val_tag_vals=np.array(VAL_DF, dtype=np.float32)
 
 np.save('./processed/train.npy', train_tag_vals)
 np.save('./processed/val.npy', val_tag_vals)
