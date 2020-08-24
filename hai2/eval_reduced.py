@@ -23,7 +23,7 @@ from reduce_utils import *
 import os
 if not os.path.exists('./plot'):
     os.makedirs('./plot')
-    
+
 if not os.path.exists('./desc'):
     os.makedirs('./desc')
 
@@ -44,6 +44,8 @@ parser.add_argument('--m_name', type=str, default='baseline',
                     help='Model Name')
 parser.add_argument('--r_type', type=str, default='pca',
                     help='Reduction Algorithm')
+parser.add_argument('--th', type=float, default='0.1',
+                    help='Threshold')
 args = parser.parse_args()
 
 #Set Params
@@ -236,7 +238,7 @@ def put_labels(distance, threshold):
     xs[distance > threshold] = 1
     return xs
 
-THRESHOLD = 0.098
+THRESHOLD = args.th
 LABELS = put_labels(ANOMALY_SCORE, THRESHOLD)
 
 #Make Prediction Label
