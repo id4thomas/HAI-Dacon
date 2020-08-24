@@ -74,7 +74,7 @@ np.save('./processed/val_atk.npy',val_atk)
 NUM_COMPONENTS=25
 x_train_r,reduc=train_reduc(train_tag_vals,'pca',n_c=NUM_COMPONENTS)
 x_val_r=reduc.transform(val_tag_vals)
-print("Reduced Data to {}".format(x_train_r.shape))
+print("Reduced Data to {} with {}".format(x_train_r.shape,'pca'))
 
 np.save('./processed/train_pca.npy', x_train_r)
 np.save('./processed/val_pca.npy', x_val_r)
