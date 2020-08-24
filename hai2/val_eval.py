@@ -16,6 +16,12 @@ from torch.utils.data import Dataset, DataLoader
 from perf_utils import *
 
 import argparse
+import os
+
+if not os.path.exists('./plot'):
+    os.makedirs('./plot')
+if not os.path.exists('./desc'):
+    os.makedirs('./desc')
 
 parser = argparse.ArgumentParser(description='HAI Train Params')
 # parser.add_argument('--ep', type=int, default=32,

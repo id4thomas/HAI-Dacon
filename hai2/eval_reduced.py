@@ -23,6 +23,8 @@ from reduce_utils import *
 import os
 if not os.path.exists('./plot'):
     os.makedirs('./plot')
+if not os.path.exists('./desc'):
+    os.makedirs('./desc')
 
 parser = argparse.ArgumentParser(description='HAI Eval Params')
 # parser.add_argument('--ep', type=int, default=32,
