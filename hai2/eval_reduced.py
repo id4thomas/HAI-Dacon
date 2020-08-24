@@ -20,7 +20,11 @@ import argparse
 from data_utils import *
 from reduce_utils import *
 
-parser = argparse.ArgumentParser(description='HAI Train Params')
+import os
+if not os.path.exists('./plot'):
+    os.makedirs('./plot')
+
+parser = argparse.ArgumentParser(description='HAI Eval Params')
 # parser.add_argument('--ep', type=int, default=32,
 #                     help='Max Epochs')
 parser.add_argument('--batch', type=int, default=512,
