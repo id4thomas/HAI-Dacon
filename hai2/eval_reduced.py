@@ -23,6 +23,7 @@ from reduce_utils import *
 import os
 if not os.path.exists('./plot'):
     os.makedirs('./plot')
+    
 if not os.path.exists('./desc'):
     os.makedirs('./desc')
 
