@@ -194,7 +194,7 @@ if MODEL_NAME=='vae':
 #ROC Curve
 roc_fig,auc,desc=make_roc(np.mean(dist,axis=1),att,ans_label=1,make_desc=True)
 roc_fig.savefig('./plot/roc_{}.png'.format(MODEL_NAME))
-desc.to_csv('./desc/baseline_grp_25.csv')
+desc.to_csv('./desc/{}_{}_{}.csv'.format(MODEL_NAME,REDUC_TYPE,NUM_COMPONENTS))
 plt.clf()
 
 
