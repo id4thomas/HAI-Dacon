@@ -9,6 +9,9 @@ import numpy as np
 import pandas as pd
 
 from reduce_utils import *
+import os
+if not os.path.exists('./processed'):
+    os.makedirs('./processed')
 
 TRAIN_DATASET = sorted([x for x in Path('./data/training/').glob("*.csv")])
 VAL_DATASET = sorted([x for x in Path('./data/validation/').glob("*.csv")])
