@@ -52,10 +52,8 @@ def train_reduc(data,reduc_type='pca',kernel='rbf',n_c=8,eps=0.01,random_state=2
     print('Reduc Complete')
     return reduced,reduc
 
-def test_reduc(data,label,reduc,reduc_type,dis='l1'):
-    #Apply Reduc
+def inverse(data,reduc,reduc_type):
     data_reduc=reduc.transform(data)
-    #Recon
     if reduc_type in ['pca','kpca','ica']:
         #If inverse available
         data_recon=reduc.inverse_transform(data_reduc)
@@ -67,7 +65,13 @@ def test_reduc(data,label,reduc,reduc_type,dis='l1'):
     elif reduc_type=='srp':
         data_recon=np.array(data_reduc).dot(reduc.components_.todense())
     else:
+        data_recon=np.zeros_like(data)
         pass
+    return data_recon
+
+def test_reduc(data,label,reduc,reduc_type,dis='l1'):
+    #Recon
+    data_recon=inverse(data,reduc,reduc_type)
 
     #Calculate Recon Loss
     if dis=='l1':
@@ -97,4 +101,3 @@ if __name__ == "__main__":
     #     roc,auc,desc=test_reduc(x_val,y_val,reduc,'ica',dis='l2')
     #     aucs.append(auc)
     # print("Best {:.5f} at {}".format(max(aucs),5+aucs.index(max(aucs))))
-    
