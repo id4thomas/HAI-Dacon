@@ -106,6 +106,12 @@ np.save('./processed/val_{}_rec.npy'.format(R_TYPE), x_val_recon)
 x_train_dist=np.mean(np.abs(x_train_recon-train_tag_vals),axis=1)
 x_val_dist=np.mean(np.abs(x_val_recon-val_tag_vals),axis=1)
 x_test_dist=np.mean(np.abs(x_test_recon-test_tag_vals),axis=1)
+
+if R_TYPE=='srp':
+    x_train_dist=np.squeeze(x_train_dist, axis=2)
+    x_val_dist=np.squeeze(x_val_dist, axis=2)
+    x_test_dist=np.squeeze(x_test_dist, axis=2)
+
 np.save('./processed/train_{}l1_dist.npy'.format(R_TYPE), x_train_dist)
 np.save('./processed/val_{}l1_dist.npy'.format(R_TYPE), x_val_dist)
 np.save('./processed/test_{}l1_dist.npy'.format(R_TYPE), x_test_dist)
@@ -115,6 +121,11 @@ x_train_dist=np.mean(np.square(x_train_recon-train_tag_vals),axis=1)
 x_val_dist=np.mean(np.square(x_val_recon-val_tag_vals),axis=1)
 x_test_dist=np.mean(np.square(x_test_recon-test_tag_vals),axis=1)
 
+if R_TYPE=='srp':
+    x_train_dist=np.squeeze(x_train_dist, axis=2)
+    x_val_dist=np.squeeze(x_val_dist, axis=2)
+    x_test_dist=np.squeeze(x_test_dist, axis=2)
+    
 np.save('./processed/train_{}l2_dist.npy'.format(R_TYPE), x_train_dist)
 np.save('./processed/val_{}l2_dist.npy'.format(R_TYPE), x_val_dist)
 np.save('./processed/test_{}l2_dist.npy'.format(R_TYPE), x_test_dist)
