@@ -38,6 +38,8 @@ parser.add_argument('--th', type=float, default='0.1',
                     help='Threshold')
 parser.add_argument('--n_c', type=int, default=25,
                     help='Number of Components')
+parser.add_argument('--r_w', type=float, default='0.1',
+                    help='Weight for reduction restoration distance')
 args = parser.parse_args()
 
 #Set Params
@@ -55,6 +57,8 @@ MODEL_NAME=args.m_name
 REDUC_TYPE=args.r_type
 
 NUM_COMPONENTS=args.n_c
+R_WEIGHT=args.r_w
+
 #Data Preprocess
 TRAIN_DATASET = sorted([x for x in Path('./data/training/').glob("*.csv")])
 VAL_DATASET = sorted([x for x in Path('./data/validation/').glob("*.csv")])
@@ -213,7 +217,7 @@ CHECK_TS, CHECK_DIST,R_DIST, CHECK_ATT = inference(HAI_DATASET_TEST, MODEL, BATC
 
 ANOMALY_SCORE_MODEL = np.mean(CHECK_DIST, axis=1)
 ANOMALY_SCORE_REDUC = np.mean(R_DIST, axis=1)
-ANOMALY_SCORE = ANOMALY_SCORE_MODEL + 3*ANOMALY_SCORE_REDUC
+ANOMALY_SCORE = ANOMALY_SCORE_MODEL + R_WEIGHT*ANOMALY_SCORE_REDUC
 
 THRESHOLD = args.th
 dist_plt=dist_graph(ANOMALY_SCORE, CHECK_ATT, piece=3,THRESHOLD=THRESHOLD)
