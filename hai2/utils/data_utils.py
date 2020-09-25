@@ -16,6 +16,12 @@ def load_processed(type,only_data=False):
         label=np.load('./processed/'+type+'_atk.npy')
         return data,label
 
+def dataframe_from_csv(target):
+    return pd.read_csv(target).rename(columns=lambda x: x.strip())
+
+def dataframe_from_csvs(targets):
+    return pd.concat([dataframe_from_csv(x) for x in targets])
+
 class HaiDataset(Dataset):
     def __init__(self, timestamps, df, stride=1, attacks=None):
         self.ts = np.array(timestamps)

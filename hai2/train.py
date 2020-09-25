@@ -34,7 +34,7 @@ parser.add_argument('--hid', type=int, default=100,
                     help='RNN Hidden Size')
 parser.add_argument('--n_l', type=int, default=3,
                     help='Number of RNN Layers')
-parser.add_argument('--do', type=float, default='0',
+parser.add_argument('--do', type=float, default=0,
                     help='Dropout Ratio')
 
 #Dataset Params
@@ -44,8 +44,6 @@ parser.add_argument('--st', type=int, default=3,
                     help='Stride')
 
 #Inference params
-parser.add_argument('--th', type=float, default='0.04',
-                    help='Threshold')
 parser.add_argument('--seed', type=int, default=42,
                     help='Random Seed')
 args = parser.parse_args()
@@ -72,12 +70,6 @@ STRIDE=args.st
 
 #Load Train Data
 TRAIN_DATASET = sorted([x for x in Path('./data/training/').glob("*.csv")])
-
-def dataframe_from_csv(target):
-    return pd.read_csv(target).rename(columns=lambda x: x.strip())
-
-def dataframe_from_csvs(targets):
-    return pd.concat([dataframe_from_csv(x) for x in targets])
 
 TRAIN_DF_RAW = dataframe_from_csvs(TRAIN_DATASET)
 
@@ -157,7 +149,7 @@ MODEL = GRUModel(gru_params)
 MODEL.cuda()
 MODEL.train()
 
-gru_name='_s1_do'
+gru_name='_best'
 
 BEST_MODEL, LOSS_HISTORY = train(HAI_DATASET_TRAIN, MODEL, BATCH_SIZE, MAX_EPOCHS_GRU)
 print(BEST_MODEL["loss"], BEST_MODEL["epoch"])
