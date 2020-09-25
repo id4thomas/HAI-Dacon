@@ -13,7 +13,7 @@ def tapr_score(predictions,label):
     print(f"# of detected anomalies: {len(TaPR['Detected_Anomalies'])}")
     print(f"Detected anomalies: {TaPR['Detected_Anomalies']}")
 
-def dist_graph(anomaly_score,atk,piece=2):
+def dist_graph(anomaly_score,atk,piece=2, THRESHOLD=None):
     #Plot point of attack & recon loss at the point
     l = anomaly_score.shape[0]
     chunk = l // piece
@@ -23,9 +23,13 @@ def dist_graph(anomaly_score,atk,piece=2):
         R = min(L + chunk, l)
         xticks = range(L, R)
         axs[i].plot(xticks, anomaly_score[L:R])
+        axs[i].set_ylim([0,0.5])#Set Y axis limit to 1.0
         if len(anomaly_score[L:R]) > 0:
             peak = max(anomaly_score[L:R])
+            # peak=1.0
             axs[i].plot(xticks, atk[L:R] * peak * 0.3)
+        if THRESHOLD!=None:
+            axs[i].axhline(y=THRESHOLD, color='r')
     # plt.savefig('./baseline/baseline_dist.png')
     return fig
 
